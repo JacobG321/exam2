@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='/styles/style.css') }}">
+    <title>Subscriptions</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='/styles/style.css') }}">
+    <title>Subscriptions</title>
+</head>
+<body>
+    <!-- Heading of page -->
+    <div class='text-center'>
+        <h1>Welcome, {{user.first_name}}!</h1>
+            <div class="col d-flex justify-content-end justify-content-around">
+                <a href="/magazine/new">Add Magazine</a>
+                <a href="/user/account">Account</a>
+                <a href="/dashboard">Dashboard</a>
+                <form action="/signout" class="d-inline">
+                    <button class="btn btn-danger" type="submit">Logout</button>
+                </form>
+            </div>
+    </div>
+    </div>
+    <div class="container">
+
+        <div class="col" id="left">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-3 col-sm-2 ">
+                    <form action="/update_information" method="POST" class="bg-info bg-gradient text-center pb-2">
+                        <h2 class="text-center">Update User</h2>
+                        {% with messages = get_flashed_messages(category_filter=['update']) %}     
+                            {% if messages %}                            
+                                {% for message in messages %}            
+                                <p>{{message}}</p>                   
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <div class="row d-flex justify-content-center">
+                            <label>First Name:</label>
+                            <input type="text" name="first_name" class="col-lg-6 col-sm-4" value="{{user.first_name}}"> 
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <label>Last Name:</label>
+                            <input type="text" name="last_name" class="col-lg-6 col-sm-4" value="{{user.last_name}}"> 
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <label>Email:</label>
+                            <input type="text" name="email" class="col-lg-6 col-sm-4" value="{{user.email}}"> 
+                        </div>
+                        <button class="btn btn-danger mt-2" type="submit">Update</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-3 col-sm-2">
+                    <div class="row d-flex justify-content-center">
+                        <h2>Magazines</h2>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div>
+                            {% for i in magazines.magazines %}
+                            <p>{{ i.title }} <a href="/magazine/delete/{{i.id}}">delete</a></p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
